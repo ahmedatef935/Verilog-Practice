@@ -1,0 +1,63 @@
+// Code your testbench here
+// or browse Examples
+module test();
+reg x1,x2,x3,x4,clk;
+wire y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12,y13,y14,y15,y16;
+
+initial 
+    begin
+      $monitor("time= %g  clk= %b  x1= %b  x2= %b  x3= %b  x4=%b  y1= %b  y2= %b  y3= %b  y4= %b    y5= %b  y6= %b  y7= %b  y8= %b  y9= %b  y10= %b  y11= %b  y12= %b    y13= %b  y14= %b  y15= %b  y16= %b" , $time , clk , x1,x2,x3,x4,y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12,y13,y14,y15,y16);
+        clk = 0;
+        x1 = 0;
+        x2 = 0;
+      	x3= 0;
+        x4 = 0 ;
+        
+        #6 
+        x1 = 0;
+        x2 = 1;
+        x3 = 1 ;
+      	x4=0;
+        
+        #6 
+        x1 = 0;
+        x2 = 0;
+        x3 = 1 ;
+      x4=1;
+        
+        #6 
+        x1 = 1;
+        x2 = 1;
+        x3 = 1 ;
+      x4=1;
+        
+        #6 $finish;
+    end
+always 
+    begin
+        #3 clk = ~ clk;
+    end
+allhigherDecoder U0 (
+.a0(x1),
+.a1(x2),
+.a2(x3),
+.a3(x4),
+.clk(clk),
+.out1(y1),
+.out2(y2),
+.out3(y3),
+.out4(y4),
+.out5(y5),
+.out6(y6),
+.out7(y7),
+.out8(y8),
+  .out9(y9),
+  .out10(y10),
+  .out11(y11),
+  .out12(y12),
+  .out13(y13),
+  .out14(y14),
+  .out15(y15),
+  .out16(y16)
+);    
+endmodule

@@ -1,0 +1,43 @@
+module decoder(
+    input wire x1,x2,enable,clk,
+    output reg y1,y2,y3,y4
+);
+
+always @(posedge clk)
+    begin
+        {y4,y3,y2,y1} = 4'b0000;
+        if(enable == 1)
+            begin
+                case({x2,x1})
+                2'b00 : y1 = 1;
+                2'b01 : y2 = 1;
+                2'b10 : y3 = 1;
+                2'b11 : y4 = 1;
+                endcase
+            end
+    end
+    
+endmodule
+
+module higherDecoder(
+    input wire a0,a1,a2,clk,enable,
+    output reg out1,out2,out3,out4,out5,out6,out7,out8
+);
+  wire enableX;
+  assign enableX = enable?a2:0;
+  assign enableY = enable?~a2:0;
+
+  decoder u1 (.x1(a0) , .x2(a1) , .enable(enableY) , .clk(clk) , .y1(out1) , .y2(out2) , .y3(out3) , .y4(out4) );
+decoder u2 (.x1(a0) , .x2(a1) , .enable(enableX) , .clk(clk) , .y1(out5) , .y2(out6) , .y3(out7) , .y4(out8) );
+endmodule
+
+module allhigherDecoder(
+    input wire a0,a1,a2,clk,a3,
+    output reg out1,out2,out3,out4,out5,out6,out7,out8,out9,out10,out11,out12,out13,out14,out15,out16
+);
+  wire enableX;
+
+
+  higherDecoder u3 (.a0(a0) , .a1(a1) , .a2(a2) , .enable(~a3) ,.clk(clk), .out1(out1) , .out2(out2) , .out3(out3) , .out4(out4), .out5(out5) , .out6(out6) , .out7(out7) , .out8(out8) );
+  higherDecoder u4 (.a0(a0) , .a1(a1) , .a2(a2) , .enable(a3) ,.clk(clk) , .out1(out9) , .out2(out10) , .out3(out11) , .out4(out12), .out5(out13) , .out6(out14) , .out7(out15) , .out8(out16) );
+endmodule

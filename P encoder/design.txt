@@ -1,0 +1,40 @@
+// Code your design here
+/* 
+ * Do not change Module name 
+*/
+module encoder(
+    input wire x1,x2,x3,x4,enable,clk,
+    output reg y1,y2,v
+    );
+
+    wire[3:0] inp = {x4,x3,x2,x1};
+
+    always @( posedge clk)
+        begin
+            if(enable)
+                begin
+                    
+                    if(x4 == 1)
+                        begin
+                            {y2,y1,v} <= 3'b111;
+                        end
+                    else if (x3 == 1)
+                        begin
+                            {y2,y1,v} <= 3'b101;
+                        end
+                    else if (x2 == 1)
+                        begin
+                            {y2,y1,v} <= 3'b011;
+                        end    
+                    else
+                        begin
+                            {y2,y1,v} <= 3'b001;
+                        end
+                end
+            else
+                begin
+                    {y2,y1,v} <= 3'b000;
+                end
+        end
+
+endmodule

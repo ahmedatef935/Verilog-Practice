@@ -1,0 +1,31 @@
+// Code your testbench here
+// or browse Examples
+module test();
+  
+  reg s,r,clk ;
+  wire q,q1,q2,q3;
+  
+  initial 
+    
+    begin
+      $monitor("time =%g  clk=%b  s =%b  r=%b  q=%b  q1=%b  q2=%b  q3=%b",$time ,clk,s,r,q,q1,q2,q3);
+      {s,r,clk} = 3'b001;
+      
+      #6 
+      {s,r} = 2'b00;
+      
+      #6
+      {s,r} = 2'b01;
+      #6
+      $finish;
+    end
+  
+  always 
+    begin
+    	#3 clk = ~clk;
+    end
+  behaveSR U0 (.s(s) , .r(r) ,.clk(clk) ,.q(q) , .q1(q1));
+  gateSR U1 (.s(s) ,.r(r) ,.clk(clk) ,.q(q2) ,.q1(q3));
+  
+endmodule
+             
